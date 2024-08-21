@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Application Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Internship Application Form</h2>
+        <form id="internshipForm">
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" required>
+            </div>
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <!-- Permanent Address -->
+            <div class="form-group">
+                <label for="permanentAddress">Permanent Address</label>
+                <textarea class="form-control" id="permanentAddress" rows="3" required></textarea>
+            </div>
+            <!-- Current Address -->
+            <div class="form-group">
+                <label for="currentAddress">Current Address</label>
+                <textarea class="form-control" id="currentAddress" rows="3" required></textarea>
+            </div>
+            <!-- Email Address -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" required>
+            </div>
+            <!-- Educational Qualifications -->
+            <div class="form-group">
+                <label for="education">Educational Qualifications (+2 onwards)</label>
+                <table class="table" id="educationTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">S. No.</th>
+                            <th scope="col">Name of Course</th>
+                            <th scope="col">School/College/Board/City</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Subjects</th>
+                            <th scope="col">Percentage of Marks</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><input type="text" class="form-control" required></td>
+                            <td><input type="text" class="form-control" required></td>
+                            <td><input type="text" class="form-control" required></td>
+                            <td><input type="text" class="form-control" required></td>
+                            <td><input type="text" class="form-control" required></td>
+                            <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-secondary" id="addRow">Add Row</button>
+            </div>
+            <!-- File Uploads -->
+            <div class="form-group">
+                <label for="imageUpload">Upload Your Image</label>
+                <input type="file" class="form-control-file" id="imageUpload" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="resumeUpload">Upload Your Resume</label>
+                <input type="file" class="form-control-file" id="resumeUpload" accept=".pdf,.doc,.docx" required>
+            </div>
+            <div class="form-group">
+                <label for="nocUpload">Upload NOC Certificate</label>
+                <input type="file" class="form-control-file" id="nocUpload" accept=".pdf,.doc,.docx" required>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Add new row to education table
+        document.getElementById('addRow').addEventListener('click', function() {
+            var table = document.getElementById('educationTable').getElementsByTagName('tbody')[0];
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+            row.innerHTML = `
+                <th scope="row">${rowCount + 1}</th>
+                <td><input type="text" class="form-control" required></td>
+                <td><input type="text" class="form-control" required></td>
+                <td><input type="text" class="form-control" required></td>
+                <td><input type="text" class="form-control" required></td>
+                <td><input type="text" class="form-control" required></td>
+                <td><button type="button" class="btn btn-danger remove-row">Remove</button></td>
+            `;
+        });
+
+        // Remove row from education table
+        document.getElementById('educationTable').addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-row')) {
+                event.target.closest('tr').remove();
+                updateRowNumbers();
+            }
+        });
+
+        // Update row numbers after a row is removed
+        function updateRowNumbers() {
+            var table = document.getElementById('educationTable').getElementsByTagName('tbody')[0];
+            for (var i = 0; i < table.rows.length; i++) {
+                table.rows[i].cells[0].innerText = i + 1;
+            }
+        }
+
+        // Handle form submission (you can add the AJAX request here to save data to the database)
+        document.getElementById('internshipForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Form submitted successfully!');
+            // Add your AJAX call here to save the data to the database and generate a PDF
+        });
+    </script>
+</body>
+</html>
